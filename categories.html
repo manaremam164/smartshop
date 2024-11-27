@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopSmart - Product Categories</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .categories-container {
+            padding: 40px 10%;
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .category-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        .category-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+        }
+        .category-info {
+            padding: 20px;
+        }
+        .category-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .category-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .category-link {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #4a90e2;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .category-link:hover {
+            background-color: #3a7bc8;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <p>ShopSmart</p>
+        </a>
+        <nav>
+            <ul class="navmenu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="index.html#vision-mission">Vision & Mission</a></li>
+                <li><a href="index.html#about-owner">About Owner</a></li>
+                <li><a href="index.html#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icon">
+            <a href="#"><i class='bx bx-search'></i></a>
+            <a href="#"><i class='bx bx-user'></i></a>
+            <a href="cart.html"><i class='bx bx-cart'></i></a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </div>
+    </header>
+
+    <main>
+        <section class="categories-container">
+            <h1>Product Categories</h1>
+            <div id="categories-grid" class="categories-grid">
+                <!-- Categories will be dynamically inserted here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 ShopSmart. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram'></i></a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuIcon = document.getElementById('menu-icon');
+            const navMenu = document.querySelector('.navmenu');
+            const categoriesGrid = document.getElementById('categories-grid');
+
+            menuIcon.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+
+            // Updated Product data
+            const products = {
+                'personal-computers': [
+                    { 
+                        id: 'pc1',
+                        name: 'Macbook Pro', 
+                        description: 'Experience unparalleled performance with the Macbook Pro. This sleek and powerful laptop is designed for professionals who demand the best in technology.',
+                        specs: '15" 4K Display, Intel i7, 16GB RAM, 512GB SSD', 
+                        price: 1299.99, 
+                        image: 'photos/computers/lapappel.png',
+                        additionalImages: [
+                            'photos/computers/lapappel_side.png',
+                            'photos/computers/lapappel_open.png',
+                            'photos/computers/lapappel_keyboard.png'
+                        ]
+                    },
+                    { 
+                        id: 'pc2',
+                        name: 'Dell XPS', 
+                        description: 'The Dell XPS is a powerhouse laptop that combines performance with portability. Perfect for both work and entertainment.',
+                        specs: 'AMD Ryzen 9, 32GB RAM, 1TB NVMe SSD, RTX 3080', 
+                        price: 2499.99, 
+                        image: 'photos/computers/lapdell.png',
+                        additionalImages: [
+                            'photos/computers/lapdell_side.png',
+                            'photos/computers/lapdell_open.png',
+                            'photos/computers/lapdell_ports.png'
+                        ]
+                    },
+                    { 
+                        id: 'pc3',
+                        name: 'HP Spectre', 
+                        description: 'The HP Spectre is a premium laptop that offers style and substance. Its sleek design houses powerful components for seamless performance.',
+                        specs: '13" Retina Display, M1 Chip, 8GB RAM, 256GB SSD', 
+                        price: 999.99, 
+                        image: 'photos/computers/laphp.png',
+                        additionalImages: [
+                            'photos/computers/laphp_side.png',
+                            'photos/computers/laphp_open.png',
+                            'photos/computers/laphp_tablet.png'
+                        ]
+                    }
+                ],
+                'smart-phones': [
+                    { 
+                        id: 'sp1',
+                        name: 'iPhone 13 Pro', 
+                        description: 'The iPhone 13 Pro is Apple\'s latest flagship smartphone, featuring cutting-edge technology and a powerful camera system.',
+                        specs: '6.7" AMOLED, 12GB RAM, 256GB Storage, 108MP Camera', 
+                        price: 1099.99, 
+                        image: 'photos/phones/phoneiphon.jfif',
+                        additionalImages: [
+                            'photos/phones/phoneiphon_back.jfif',
+                            'photos/phones/phoneiphon_side.jfif',
+                            'photos/phones/phoneiphon_camera.jfif'
+                        ]
+                    },
+                    { 
+                        id: 'sp2',
+                        name: 'Samsung Galaxy S21', 
+                        description: 'The Samsung Galaxy S21 offers a premium Android experience with its powerful processor and versatile camera setup.',
+                        specs: '6.1" Super Retina XDR, A15 Bionic, 128GB Storage', 
+                        price: 999.99, 
+                        image: 'photos/phones/phonesamsung.jfif',
+                        additionalImages: [
+                            'photos/phones/phonesamsung_back.jfif',
+                            'photos/phones/phonesamsung_side.jfif',
+                            'photos/phones/phonesamsung_camera.jfif'
+                        ]
+                    },
+                    { 
+                        id: 'sp3',
+                        name: 'Google Pixel 6', 
+                        description: 'The Google Pixel 6 showcases the best of Android with its clean interface and advanced AI capabilities.',
+                        specs: '6.4" OLED, Google Tensor, 8GB RAM, 128GB Storage', 
+                        price: 899.99, 
+                        image: 'photos/phones/phonesamsung 2.jfif',
+                        additionalImages: [
+                            'photos/phones/phonesamsung2_back.jfif',
+                            'photos/phones/phonesamsung2_side.jfif',
+                            'photos/phones/phonesamsung2_camera.jfif'
+                        ]
+                    }
+                ],
+                'hardware-accessories': [
+                    { 
+                        id: 'ha1',
+                        name: 'Mechanical Keyboard', 
+                        description: 'This high-performance mechanical keyboard offers a satisfying typing experience with customizable RGB lighting.',
+                        specs: 'Mechanical Keyboard, RGB Backlit, Cherry MX Switches', 
+                        price: 299.99, 
+                        image: 'photos/hardware/2hardware.jfif',
+                        additionalImages: [
+                            'photos/hardware/2hardware_side.jfif',
+                            'photos/hardware/2hardware_rgb.jfif',
+                            'photos/hardware/2hardware_switches.jfif'
+                        ]
+                    },
+                    { 
+                        id: 'ha2',
+                        name: 'Bose QuietComfort Earphones', 
+                        description: 'Experience superior sound quality and noise cancellation with these premium wireless earphones.',
+                        specs: 'Wireless Noise Cancelling, Bluetooth, 24 Hours Battery Life', 
+                        price: 279.99, 
+                        image: 'photos/hardware/3hardware.jfif',
+                        additionalImages: [
+                            'photos/hardware/3hardware_case.jfif',
+                            'photos/hardware/3hardware_wearing.jfif',
+                            'photos/hardware/3hardware_controls.jfif'
+                        ]
+                    },
+                    { 
+                        id: 'ha3',
+                        name: 'Thunderbolt Dock', 
+                        description: 'Expand your connectivity options with this high-speed Thunderbolt dock, perfect for power users and professionals.',
+                        specs: '40Gbps, 4K@60Hz, 100W Power Delivery', 
+                        price: 149.99, 
+                        image: 'photos/hardware/4haredware.jfif',
+                        additionalImages: [
+                            'photos/hardware/4hardware_back.jfif',
+                            'photos/hardware/4hardware_side.jfif',
+                            'photos/hardware/4hardware_connected.jfif'
+                        ]
+                    }
+                ],
+                'application-software': [
+                    { 
+                        id: 'as1',
+                        name: 'Microsoft PowerPoint', 
+                        description: 'Create stunning presentations with ease using Microsoft PowerPoint, the industry-standard presentation software.',
+                        specs: 'Latest version, Windows/Mac compatible, Cloud integration', 
+                        price: 69.99, 
+                        image: 'photos/apps/power.png',
+                        additionalImages: [
+                            'photos/apps/power_interface.png',
+                            'photos/apps/power_templates.png',
+                            'photos/apps/power_animation.png'
+                        ]
+                    },
+                    { 
+                        id: 'as2',
+                        name: 'Spotify Premium', 
+                        description: 'Enjoy ad-free music streaming, offline playback, and high-quality audio with Spotify Premium.',
+                        specs: 'Ad-free, Offline mode, High quality streaming', 
+                        price: 9.99, 
+                        image: 'photos/apps/2app.png',
+                        additionalImages: [
+                            'photos/apps/2app_interface.png',
+                            'photos/apps/2app_playlist.png',
+                            'photos/apps/2app_discover.png'
+                        ]
+                    },
+                    { 
+                        id: 'as3',
+                        name: 'Adobe Photoshop', 
+                        description: 'Unleash your creativity with Adobe Photoshop, the world\'s best imaging and graphic design software.',
+                        specs: 'Latest version, Windows/Mac compatible, Cloud storage', 
+                        price: 20.99, 
+                        image: 'photos/apps/adobe.png',
+                        additionalImages: [
+                            'photos/apps/adobe_interface.png',
+                            'photos/apps/adobe_tools.png',
+                            'photos/apps/adobe_editing.png'
+                        ]
+                    }
+                ],
+                'system-software': [
+                    { 
+                        id: 'ss1',
+                        name: 'Windows 11 Pro', 
+                        description: 'Experience the latest features and enhanced security with Windows 11 Pro, designed for businesses and power users.',
+                        specs: 'Latest version, Multi-device license, Advanced security features', 
+                        price: 199.99, 
+                        image: 'photos/brand/4windowsos.jfif',
+                        additionalImages: [
+                            'photos/brand/4windowsos_desktop.jfif',
+                            'photos/brand/4windowsos_start.jfif',
+                            'photos/brand/4windowsos_settings.jfif'
+                        ]
+                    },
+                    { 
+                        id: 'ss2',
+                        name: 'Ubuntu Linux', 
+                        description: 'Discover the power of open-source with Ubuntu Linux, a user-friendly and customizable operating system.',
+                        specs: 'Latest LTS version, Free updates, Wide hardware compatibility', 
+                        price: 0, 
+                        image: 'photos/brand/linux os1.jfif',
+                        additionalImages: [
+                            'photos/brand/linuxos1_desktop.jfif',
+                            'photos/brand/linuxos1_terminal.jfif',
+                            'photos/brand/linuxos1_software.jfif'
+                        ]
+                    },
+                    { 
+                        id: 'ss3',
+                        name: 'Android Enterprise', 
+                        description: 'Secure and manage your business mobile devices with Android Enterprise, offering advanced features for corporate environments.',
+                        specs: 'Latest version, Multi-device management, Enhanced security', 
+                        price: 299.99, 
+                        image: 'photos/brand/os3android.png',
+                        additionalImages: [
+                            'photos/brand/os3android_interface.png',
+                            'photos/brand/os3android_security.png',
+                            'photos/brand/os3android_apps.png'
+                        ]
+                    }
+                ]
+            };
+
+            // Category descriptions
+            const categoryDescriptions = {
+                'personal-computers': 'Discover our range of high-performance laptops and desktops for work and play.',
+                'smart-phones': 'Explore the latest smartphones with cutting-edge features and technology.',
+                'hardware-accessories': 'Enhance your tech setup with our selection of high-quality accessories.',
+                'application-software': 'Boost your productivity with our range of professional software applications.',
+                'system-software': 'Find the right operating systems and utilities for your devices.'
+            };
+
+            // Function to render categories
+            function renderCategories() {
+                for (const [category, categoryProducts] of Object.entries(products)) {
+                    const categoryCard = document.createElement('div');
+                    categoryCard.className = 'category-card';
+                    categoryCard.innerHTML = `
+                        <img src="${categoryProducts[0].image}" alt="${category}" class="category-image">
+                        <div class="category-info">
+                            <h2 class="category-title">${category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</h2>
+                            <p class="category-description">${categoryDescriptions[category]}</p>
+                            <a href="category_products.html?category=${category}" class="category-link" data-category="${category}">View Products</a>
+                        </div>
+                    `;
+                    categoriesGrid.appendChild(categoryCard);
+                }
+            }
+
+            // Function to save category and its products to localStorage
+            function saveCategoryToLocalStorage(category) {
+                localStorage.setItem('currentCategory', category);
+                localStorage.setItem('categoryProducts', JSON.stringify(products[category]));
+            }
+
+            // Render categories
+            renderCategories();
+
+            // Add event listeners to category links
+            document.querySelectorAll('.category-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const category = this.dataset.category;
+                    saveCategoryToLocalStorage(category);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

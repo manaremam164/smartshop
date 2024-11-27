@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopSmart - Your Tech Destination</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">
+            <p>ShopSmart</p>
+        </a>
+        <nav>
+            <ul class="navmenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#vision-mission">Vision & Mission</a></li>
+                <li><a href="#about-owner">About Owner</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icon">
+            <a href="#"><i class='bx bx-search'></i></a>
+            <a href="#"><i class='bx bx-user'></i></a>
+            <a href="cart_page.html"><i class='bx bx-cart'></i></a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h1>Welcome to ShopSmart</h1>
+            <p>Your one-stop shop for all your tech needs!</p>
+            <a href="categories.html" class="cta-button">Shop Now</a>
+        </section>
+
+        <section id="products" class="content-section">
+            <h2>Our Products</h2>
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="personal-computers">Personal Computers</button>
+                <button class="category-tab" data-category="smart-phones">Smart Phones</button>
+                <button class="category-tab" data-category="hardware-accessories">Hardware Accessories</button>
+                <button class="category-tab" data-category="application-software">Application Software</button>
+                <button class="category-tab" data-category="system-software">System Software</button>
+            </div>
+            <div class="products-grid">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <section id="vision-mission" class="content-section">
+            <h2>Our Vision & Mission</h2>
+            <div class="vision-mission-content">
+                <div class="vision">
+                    <h3>Vision</h3>
+                    <p>To be the leading tech retailer, empowering people through innovative technology solutions.</p>
+                </div>
+                <div class="mission">
+                    <h3>Mission</h3>
+                    <p>Our mission is to provide high-quality tech products at affordable prices, making technology accessible to everyone while delivering exceptional customer service.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-owner" class="content-section">
+            <h2>About the Owner</h2>
+            <div class="owner-content">
+                <img src="photos/brand/4windowsos.jfif" alt="ShopSmart Owner" class="owner-image">
+                <div class="owner-info">
+                    <h3>John Doe</h3>
+                    <p>John Doe, the visionary behind ShopSmart, has over 15 years of experience in the tech industry. His passion for making cutting-edge technology accessible to everyone led him to found ShopSmart in 2010. Under his leadership, ShopSmart has grown into a trusted name in tech retail, known for its quality products and exceptional customer service.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="content-section">
+            <h2>Contact Us</h2>
+            <div class="contact-content">
+                <form id="contact-form">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <p><i class='bx bx-map'></i> 123 Tech Street, Silicon Valley, CA 94000</p>
+                    <p><i class='bx bx-phone'></i> +1 (555) 123-4567</p>
+                    <p><i class='bx bx-envelope'></i> support@shopsmart.com</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 ShopSmart. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram'></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

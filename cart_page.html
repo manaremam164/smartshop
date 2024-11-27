@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopSmart - Your Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .cart-container {
+            padding: 40px 10%;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        .cart-item-title {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        .cart-item-price {
+            color: #4a90e2;
+            font-weight: bold;
+        }
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .quantity-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+        }
+        .remove-item {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        .cart-summary {
+            margin-top: 40px;
+            text-align: right;
+        }
+        .cart-total {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .checkout-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+        .empty-cart-message {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <p>ShopSmart</p>
+        </a>
+        <nav>
+            <ul class="navmenu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="index.html#vision-mission">Vision & Mission</a></li>
+                <li><a href="index.html#about-owner">About Owner</a></li>
+                <li><a href="index.html#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icon">
+            <a href="#"><i class='bx bx-search'></i></a>
+            <a href="#"><i class='bx bx-user'></i></a>
+            <a href="#"><i class='bx bx-cart'></i></a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </div>
+    </header>
+
+    <main>
+        <section class="cart-container">
+            <h1>Your Cart</h1>
+            <div id="cart-items">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+            <div class="cart-summary">
+                <p class="cart-total">Total: $<span id="cart-total">0.00</span></p>
+                <button class="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 ShopSmart. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram'></i></a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuIcon = document.getElementById('menu-icon');
+            const navMenu = document.querySelector('.navmenu');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+
+            menuIcon.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+
+            function updateCart() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cartItemsContainer.innerHTML = '';
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty.</p>';
+                    cartTotalElement.textContent = '0.00';
+                    return;
+                }
+
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    const itemTotal = +item.price * item.quantity;
+                    total += itemTotal;
+
+                    const cartItemHTML = `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="cart-item-details">
+                                <h3 class="cart-item-title">${item.name}</h3>
+                                <p class="cart-item-price">$${item.price}</p>
+                                <div class="cart-item-quantity">
+                                    <button class="quantity-btn minus" data-index="${index}">-</button>
+                                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-index="${index}">
+                                    <button class="quantity-btn plus" data-index="${index}">+</button>
+                                    <button class="remove-item" data-index="${index}">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.innerHTML += cartItemHTML;
+                });
+
+                cartTotalElement.textContent = total;
+
+                // Add event listeners for quantity buttons and remove buttons
+                document.querySelectorAll('.quantity-btn').forEach(btn => {
+                    btn.addEventListener('click', updateQuantity);
+                });
+
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('change', updateQuantityFromInput);
+                });
+
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', removeItem);
+                });
+            }
+
+            function updateQuantity(e) {
+                const index = parseInt(e.target.dataset.index);
+                const cart = JSON.parse(localStorage.getItem('cart'));
+                if (e.target.classList.contains('plus')) {
+                    cart[index].quantity++;
+                } else if (e.target.classList.contains('minus') && cart[index].quantity > 1) {
+                    cart[index].quantity--;
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+            }
+
+            function updateQuantityFromInput(e) {
+                const index = parseInt(e.target.dataset.index);
+                const cart = JSON.parse(localStorage.getItem('cart'));
+                const newQuantity = parseInt(e.target.value);
+                if (newQuantity > 0) {
+                    cart[index].quantity = newQuantity;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCart();
+                }
+            }
+
+            function removeItem(e) {
+                const index = parseInt(e.target.dataset.index);
+                const cart = JSON.parse(localStorage.getItem('cart'));
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+            }
+
+            // Initialize the cart
+            updateCart();
+
+            // Add event listener for checkout button
+            document.querySelector('.checkout-btn').addEventListener('click', function() {
+                alert('Thank you for your purchase! This is where the checkout process would begin.');
+            });
+        });
+    </script>
+</body>
+</html>
